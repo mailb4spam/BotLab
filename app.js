@@ -27,12 +27,53 @@ var connector = new builder.ChatConnector({
 server.post('/api/messages', connector.listen());
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
-var bot = new builder.UniversalBot(connector, function (session) {
-    session.userData.profile = parser.ParseInquire(session.message.text);
-    if (session.userData.profile.greeting) {
-        session.send(i18n.__("greeting"));
+var bot = new builder.UniversalBot(connector, [
+    function (session) {
+        session.userData.profile = parser.ParseInquire(session.message.text);
+        if (session.userData.profile.greeting) {
+            session.send(i18n.__("greeting"));
+        }
+        session.beginDialog('requestProfile', session.userData.profile);
+    },
+    function (session, results) {
+        session.userData.profile = results.response;
+        if (session.userData.profile.location) {
+            session.send("Menu for: " + session.userData.profile.location);
+        }
+        else {
+            session.send("Unknown location");
+        }
+        session.userData.profile = {}; // answer given, forget request details 
+        session.endDialog();
     }
-    else {
-        session.send("You said: %s", session.message.text);
+]).set('storage', inMemoryStorage);
+
+bot.dialog('requestProfile', [
+    function (session, args, next) {
+        session.dialogData.profile = args || {}; // set the profile or create the object
+        let retryText = i18n.__('promptLocationRetry');
+        if (!session.dialogData.profile.location) {
+            builder.Prompts.choice(session,
+                i18n.__('promptLocation'),
+                "restaurant|bar",
+                {listStyle: 4, retryPrompt: retryText}); // list style: auto
+        }
+        else {
+            next(); // skip if we already have this info
+        }
+    },
+    function (session, results) {
+        if (results.response) {
+            // save location if we asked for it.
+            session.dialogData.profile.location = results.response.entity;
+        }
+        session.endDialogWithResult({ response: session.dialogData.profile });
     }
-}).set('storage', inMemoryStorage);
+])
+.endConversationAction(
+    "endRequest", i18n.__("stopped"),
+    {
+        matches: /^cancel$|^goodbye$|^stop$/i
+        //confirmPrompt: i18n.__('confirmCancel')
+    }
+);
