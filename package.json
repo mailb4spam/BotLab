@@ -1,0 +1,19 @@
+{
+  "name": "botlab",
+  "version": "1.0.0",
+  "description": "botlab_description",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mailb4spam/BotLab.git"
+  },
+  "author": "mailb4spam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mailb4spam/BotLab/issues"
+  },
+  "homepage": "https://github.com/mailb4spam/BotLab#readme"
+}
