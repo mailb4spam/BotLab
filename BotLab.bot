@@ -1,0 +1,18 @@
+{
+    "name": "BotLab",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:3982/api/messages",
+            "id": "5c98dd00-c2f8-11e8-80f4-c9e293447107",
+            "name": "http://localhost:3982/api/messages"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "overrides": null,
+    "path": "/Users/u_s/Desktop/Temp/workshop/BotLab/BotLab.bot"
+}
