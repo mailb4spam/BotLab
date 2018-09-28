@@ -55,7 +55,7 @@ bot.dialog('requestProfile', [
         if (!session.dialogData.profile.location) {
             builder.Prompts.choice(session,
                 i18n.__('promptLocation'),
-                "restaurant|bar",
+                "restaurant|bar|Kurilka|123|234|345",
                 {listStyle: 4, retryPrompt: retryText}); // list style: auto
         }
         else {
