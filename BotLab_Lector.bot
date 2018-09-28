@@ -1,0 +1,18 @@
+{
+    "name": "BotLab_Lector",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "https://botlab28.azurewebsites.net/api/messages",
+            "id": "fb2a0080-c31a-11e8-80f4-c9e293447107",
+            "name": "https://botlab28.azurewebsites.net/api/messages"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "overrides": null,
+    "path": "/Users/u_s/Desktop/Temp/workshop/BotLab/BotLab_Lector.bot"
+}
